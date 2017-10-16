@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+/* eslint-disable */
+
 // Components
 import EditToggle from './components/EditToggle';
 import ColorChanger from './components/ColorChanger';
@@ -9,30 +11,68 @@ import TextContainer from './components/TextContainer';
 
 class App extends Component {
   // constructor
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+ 
+      fontColor: 'black',
+      fontSize: 12,
+      fontFamily: 'monospace',
+      allowEdit: 'true'
+      
+    }
 
-  // updateColor
+    this.updateColor = this.updateColor.bind(this);
+    this.updateFamily = this.updateFamily.bind(this);
+    this.updateSize = this.updateSize.bind(this);
+    this.updateEditStatus = this.updateEditStatus.bind(this);
 
-  // updateSize
+  }
 
-  // updateFamily
+  
+  
+  updateColor(val) {
+    this.setState({fontColor: val});
+  }
 
-  // updateEditStatus
+  updateSize(val) {
+    
+    this.setState({fontSize: val})
+  }
+
+  updateFamily(val) {
+    this.setState({fontFamily: val})
+  }
+
+  updateEditStatus(val) {
+    this.setState({allowEdit: val})
+  }
+
+  
+
 
   render() {
+    //if we decide that component should update, it will render again
+    //console.log('me second');
     return (
       <div>
         <div className="headerBar">
-          { /* Render EditToggle */ }
-          { /* Render ColorChanger */ }
-          { /* Render SizeChanger */ }
-          { /* Render FamilyChanger */ }
+          <EditToggle     update={this.updateEditStatus}  allowEdit={this.state.allowEdit} />
+          <ColorChanger   update={this.updateColor}       allowEdit={this.state.allowEdit} />
+          <SizeChanger    update={this.updateSize}        allowEdit={this.state.allowEdit} />
+          <FamilyChanger  update={this.updateFamily}      allowEdit={this.state.allowEdit} />
         </div>
         <div className="textArea">
-          { /* Render TextContainer */ }
+          <TextContainer fontColor={this.state.fontColor} fontFamily={this.state.fontFamily} fontSize={this.state.fontSize} />
         </div>
       </div>
     )
   }
+
+  
+
 }
+
 
 export default App;
